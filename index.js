@@ -104,11 +104,11 @@ export function ApiService(options) {
 const createTree = (base, items) =>
   items.reduce((res, item) => {
     const opts = getOpts(item)
-    if (!(base instanceof ApiService)) {
+    if (!base._isApiService) {
       opts.adapter = base
     }
     const next =
-      base instanceof ApiService ? base.extend(opts) : new ApiService(opts)
+      base._isApiService ? base.extend(opts) : new ApiService(opts)
 
     if (item.on) {
       Object.keys(item.on).forEach(evt => next.on(evt, item.on[evt]))
@@ -142,7 +142,7 @@ export const ApiTree = function(base, items) {
 const createObjectTree = (base, items) =>
   Object.keys(items).reduce((res, key) => {
     res[key] =
-      base instanceof ApiService
+      base._isApiService
         ? base.extend(items[key])
         : new ApiService(items[key])
     return res
