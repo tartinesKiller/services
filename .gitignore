@@ -64,5 +64,5 @@ typings/
 .DS_Store
 
 # Build
-index.cjs.js
-index.es.js
+# index.cjs.js
+# index.es.js
